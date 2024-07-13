@@ -8,8 +8,6 @@ public class Main {
         return !map.containsValue(0);
     }
 
-    ;
-
     String displayAsStars(Integer num) {
         String amountAsStars = "";
 
@@ -20,22 +18,19 @@ public class Main {
         return amountAsStars;
     }
 
-    ;
 
     HashMap<String, Integer> decreasePile(HashMap<String, Integer> map, String pile) {
         if (map.containsKey(pile)) {
-            int amount = map.get(pile);
-            map.put(pile, amount - 1);
+            map.compute(pile, (_, amount) -> amount - 1);
             return map;
         } else {
             System.out.println("You didn't select an existing pile, try with a different letter");
         }
-        ;
+
 
         return map;
     }
 
-    ;
 
     public static void main(String[] args) {
         Main mainClass = new Main();
@@ -57,7 +52,10 @@ public class Main {
 
         while (mainClass.gameContinues(mainClass.myMap)) {
 
-            System.out.printf("A: %s\nB: %s\nC: %s\n", mainClass.displayAsStars(mainClass.myMap.get("A")), mainClass.displayAsStars(mainClass.myMap.get("B")), mainClass.displayAsStars(mainClass.myMap.get("C")));
+            System.out.printf("A: %s\nB: %s\nC: %s\n",
+                    mainClass.displayAsStars(mainClass.myMap.get("A")),
+                    mainClass.displayAsStars(mainClass.myMap.get("B")),
+                    mainClass.displayAsStars(mainClass.myMap.get("C")));
             System.out.printf("%s, choose a pile: ", currentPlayer);
             String pile = pileChosen.nextLine();
 
