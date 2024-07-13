@@ -28,7 +28,7 @@ public class Main {
             map.put(pile, amount - 1);
             return map;
         } else {
-            System.out.println("You didn't select an existing pile");
+            System.out.println("You didn't select an existing pile, try with a different letter");
         }
         ;
 
