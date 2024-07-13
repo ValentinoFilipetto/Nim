@@ -9,13 +9,13 @@ public class Main {
     }
 
     String displayAsStars(Integer num) {
-        String amountAsStars = "";
+        StringBuilder amountAsStars = new StringBuilder();
 
         for (int i = 0; i <= num; ++i) {
-            amountAsStars = amountAsStars + "*";
+            amountAsStars.append("*");
         }
 
-        return amountAsStars;
+        return amountAsStars.toString();
     }
 
 
