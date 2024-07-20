@@ -5,13 +5,20 @@ public class Main {
     HashMap<String, Integer> myMap = new HashMap<>();
 
     boolean gameContinues(HashMap<String, Integer> map) {
-        return !map.containsValue(0);
+        Integer sum = 0;
+
+        for (String key : map.keySet()) {
+            sum += map.get(key);
+        }
+
+        /* Game ends when there is only one object to be picked. */
+        return sum != 1;
     }
 
     String displayAsStars(Integer num) {
         StringBuilder amountAsStars = new StringBuilder();
 
-        for (int i = 0; i <= num; ++i) {
+        for (int i = 0; i < num; ++i) {
             amountAsStars.append("*");
         }
 
@@ -19,12 +26,17 @@ public class Main {
     }
 
 
-    HashMap<String, Integer> decreasePile(HashMap<String, Integer> map, String pile) {
-        if (map.containsKey(pile)) {
-            map.compute(pile, (_, amount) -> amount - 1);
+    HashMap<String, Integer> decreasePile(HashMap<String, Integer> map, String pile, Integer amountChosen) {
+        if (amountChosen > map.get((pile))) {
+            System.out.printf("Pile %s doesn't have that many. Try again", pile);
+            return map;
+        }
+
+        if (map.containsKey(pile) && map.get(pile) != 0) {
+            map.compute(pile, (_, amount) -> amount - amountChosen);
             return map;
         } else {
-            System.out.println("You didn't select an existing pile, try with a different letter");
+            System.out.println("You didn't select an existing pile, or the pile you picked is empty");
         }
 
 
@@ -41,6 +53,7 @@ public class Main {
 
         Scanner names = new Scanner(System.in);
         Scanner pileChosen = new Scanner(System.in);
+        Scanner amountChosen = new Scanner(System.in);
 
         System.out.println("Player 1, enter your name:");
         String namePlayer1 = names.nextLine();
@@ -59,7 +72,15 @@ public class Main {
             System.out.printf("%s, choose a pile: ", currentPlayer);
             String pile = pileChosen.nextLine();
 
-            mainClass.myMap = mainClass.decreasePile(mainClass.myMap, pile);
+            System.out.printf("How many to remove from pile %s?: ", pile);
+            int amount = amountChosen.nextInt();
+
+            if (amount == 0) {
+                System.out.println("You must remove at least one!");
+            } else {
+                mainClass.myMap = mainClass.decreasePile(mainClass.myMap, pile, amount);
+            }
+
 
             if (currentPlayer.equals(namePlayer1)) {
                 currentPlayer = namePlayer2;
