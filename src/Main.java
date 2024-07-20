@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.HashMap;
 
 public class Main {
 
@@ -35,7 +34,6 @@ public class Main {
             } else {
                 game.myMap = game.decreasePile(game.myMap, pile, amount);
             }
-
 
             if (currentPlayer.equals(namePlayer1)) {
                 currentPlayer = namePlayer2;
